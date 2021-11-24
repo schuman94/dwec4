@@ -7,19 +7,108 @@
   <title>Document</title>
 </head>
 <body>
+  <p id="array"></p>
+  <p id="suma"></p>
+  <p id="inverso"></p>
+  <label for="numero">Buscar: </label>
+  <input type="text" id="numero" name="numero">
+  <input type="button" value="borrar" id="borrar">
+  <br><br>
+  <input type="button" value="ascendente" id="ascendente">
+  <input type="button" value="descendente" id="descendente">
+  <p id="mensaje"></p>
+
   <script>
     /*
       Crea un array con los números impares del 1 al 21. (CE4b, CE4c, CE4d, CE4i)
-      -Calcula el sumatorio de dichos números impares e imprime el resultado.
-      -Muestra en orden inverso el array creado anteriormente.
-      -Lea un valor que escriba el usuario y búsquelo en el array. Indique si la búsqueda tuvo éxito indicando posición o si no tuvo éxito.
-      -En caso de tener éxito, borra su valor.
-      -Muéstrelo ordenado de forma ascendente, y a continuación de forma descendente.
+      a. Calcula el sumatorio de dichos números impares e imprime el resultado.
+      b. Muestra en orden inverso el array creado anteriormente.
+      c. Lea un valor que escriba el usuario y búsquelo en el array. Indique si la búsqueda tuvo éxito indicando 
+         posición o si no tuvo éxito. En caso de tener éxito, borra su valor.
+      d. Muéstrelo ordenado de forma ascendente, y a continuación de forma descendente.
     */
 
 
+    // DEFINICIÓN DE FUNCIONES
+
+    //Crea un array con los numeros impares desde 1 al limite indicado
+    function arrayImpares(limite) {
+      let a = [];
+      for (let i = 1; i <= limite; i++) {
+        if (i % 2 != 0) {
+        a.push(i); 
+        }
+      }
+      return a;
+    }
+
+    //Calcula el sumatorio de los numeros de un array
+    function sumatorioArray(arr) {
+      return arr.reduce((a, b) => a + b);
+    }
+
+    //Devuelve un array en orden inverso sin modificar el original
+    function ordenInverso(arr) {
+      let a = [...arr];
+      return a.reverse();
+    }
+    
+    //Busca en un array un elemento indicado, si lo encuentra, elimina su primera aparición
+    function buscarBorrar(arr, num) {
+      num = parseInt(num);
+      let indice = arr.indexOf(num);
+      let cadena = `${num}`
+      if (indice == -1) {
+        cadena += " no se encuentra en el array";
+      } else {
+        arr.splice(indice, 1);
+        cadena += " se encontraba en el array y ha sido eliminada su primera aparición"
+      }
+      console.log(cadena);
+      console.log("Array: " + miArr);
+      return cadena;
+    }
+
+    //Devuelve un array ordenado ascendentemente sin modificar el original
+    function ascendente(arr) {
+      let a = [...arr];
+      a.sort((x,y) => x-y);
+      return a;
+    }
+
+    //Devuelve un array ordenado descendentemente sin modificar el original
+    function descendente(arr) {
+      let a = [...arr];
+      a.sort((x,y) => y-x);
+      return a;
+    }
 
 
+    // EJECUCIÓN DE SENTENCIAS PARA EL EJERCICIO
+
+    let miArr = arrayImpares(21);
+    console.log("Array: " + miArr);
+    document.getElementById("array").innerHTML = "Array: " + miArr;
+
+    // Apartado a
+    let suma = sumatorioArray(miArr)
+    console.log("Sumatorio: " + suma);
+    document.getElementById("suma").innerHTML = "Sumatorio: " + suma;
+
+    // Apartado b
+    let inverso = ordenInverso(miArr);
+    console.log("Inverso: " + inverso)
+    document.getElementById("inverso").innerHTML = "Inverso: " + inverso;
+
+    // Apartado c
+    let mensaje;
+    document.getElementById("borrar").addEventListener('click', () => mensaje = buscarBorrar(miArr, document.getElementById('numero').value));
+    document.getElementById("borrar").addEventListener('click', () => document.getElementById('mensaje').innerHTML = mensaje);
+  
+    // Apartado d
+    document.getElementById("ascendente").addEventListener('click', () => document.getElementById('mensaje').innerHTML = ascendente(miArr));
+    document.getElementById("descendente").addEventListener('click', () => document.getElementById('mensaje').innerHTML = descendente(miArr));
   </script>
+
 </body>
 </html>
