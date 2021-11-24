@@ -13,19 +13,13 @@
       arr1[i] = Math.floor((Math.random() * 1000) + 1);
     }
 
-    let arr2 = [];
-    for (i in arr1) {
-      arr2[i] = arr1[i];
-    }
+    let arr2 = [...arr1];
 
     arr2.sort((a,b) => a-b);
     let min = arr2[0];
     let max = arr2.pop();
 
-    let arr3 = [];
-    for (i in arr1) {
-      arr3[i] = arr1[i];
-    }
+    let arr3 = [...arr1];
 
     arr3.splice(arr3.indexOf(min), 1);
     arr3.splice(arr3.indexOf(max), 1);
