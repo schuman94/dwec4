@@ -7,6 +7,8 @@
   <title>Document</title>
 </head>
 <body>
+  <p id="marca"></p>
+  <p id="color"></p>
   <script>
     /*
       Crear objeto Vehículo. (CE4b, CE4e, CE4f, CE4g, CE4h, CE4i)
@@ -23,8 +25,37 @@
       -Modifica los descriptores de las propiedades para que no se muestren los métodos ni la propiedad marca al usar for...in y Object.keys. Muestra de nuevo las propiedades del Objeto1.
     */
 
-    
+    function Vehiculo(marca, modelo, color, fabricacion) {
+      this.marca = marca;
+      this.modelo = modelo;
+      this.color = color;
+      this.fabricacion = fabricacion;
+    }
 
+    let v1 = new Vehiculo("Renault", "Megane", "negro", 2010);
+    let v2 = new Vehiculo("Opel", "Corsa", "rojo", 2018);
+
+    console.log("Marca de v1: " + v1.marca);
+    document.getElementById("marca").innerHTML = v1.marca;
+
+    console.log("Color de v2: " + v2['color']);
+    document.getElementById("color").innerHTML = v2['color'];
+
+    Vehiculo.prototype.mostrarDatos = function () {
+      return `Vehiculo de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} y fabricado en el ${this.fabricacion}`;
+    };
+
+    console.log("Datos de v1: " + v1.mostrarDatos());
+
+    Vehiculo.prototype.acelerar = function (velocidad) {
+      console.log("El coche ha acelerado a la velocidad de " + velocidad + " km/h");
+    };
+
+    Vehiculo.prototype.arrancar = function () {
+      console.log(`El coche de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} ha arrancado`);
+    };
+
+    Vehiculo.prototype.cilindrada;
 
   </script>
 </body>
