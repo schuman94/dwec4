@@ -4,21 +4,58 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Ejercicio 3</title>
 </head>
 <body>
+  <p id="resultado"></p>
   <script>
     /*
       Usando métodos de arrays de orden superior: (CE4b, CE4c, CE4d, CE4i)
-      -Crea un vector con 5 valores numéricos.
-      -Comprueba si son todos enteros positivos.
-      -Devuelve en un nuevo array el triple sus valores.
-      -Calcula el resultado de multiplicar todos los valores del nuevo array.
+      a) Crea un vector con 5 valores numéricos.
+      b) Comprueba si son todos enteros positivos.
+      c) Devuelve en un nuevo array el triple sus valores.
+      d) Calcula el resultado de multiplicar todos los valores del nuevo array.
     */
 
-    
+    //Devuelve un numero aleatorio, algunas veces negativo y/o con decimales.
+    function aleatorio() {
+      return Math.floor((Math.random() * 100) - Math.floor((Math.random() * 20))) * (Math.floor((Math.random() * 2)) + 1) / (Math.floor((Math.random() * 2)) + 1);
+    }
+
+    // Devuelve true si el numero es entero y positivo, sino, falso.
+    function enteroPositivo(num) {
+      return num == Math.floor(num) && num >= 0;
+    }
+
+    //Inicializamos un array. Si lo iniciamos como new Array(5) no se puede recorrer con el map porque no están definidos sus elementos.
+    let vect = [null, null, null, null, null];
+
+    //A (Usando métodos de arrays de orden superior)
+    vect = vect.map(item => aleatorio());
+    console.log(vect);
+
+
+
+    //B
+    let numEnteroPositivos = vect.every(enteroPositivo);
+    console.log(numEnteroPositivos);
+
+    //C
+    let nuevoX3 = vect.map(item => item * 3);
+    console.log(nuevoX3);
+
+    //D
+    let multiplicados = vect.reduce((a, b) => a * b);
+    console.log(multiplicados);
+
+    // Mostramos los resultados en el documento
+    document.getElementById("resultado").innerHTML = `Valores del array: ${vect.join(', ')} <br>
+                                                      Todos enteros y positivos: ${numEnteroPositivos} <br>
+                                                      El triple de sus valores: ${nuevoX3.join(', ')} <br>
+                                                      Todos sus valores multiplicados: ${multiplicados}`;
 
 
   </script>
+
 </body>
 </html>

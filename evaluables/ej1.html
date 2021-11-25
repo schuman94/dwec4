@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Ejercicio 1</title>
 </head>
 <body>
   <p id="array"></p>
@@ -23,7 +23,7 @@
       Crea un array con los números impares del 1 al 21. (CE4b, CE4c, CE4d, CE4i)
       a. Calcula el sumatorio de dichos números impares e imprime el resultado.
       b. Muestra en orden inverso el array creado anteriormente.
-      c. Lea un valor que escriba el usuario y búsquelo en el array. Indique si la búsqueda tuvo éxito indicando 
+      c. Lea un valor que escriba el usuario y búsquelo en el array. Indique si la búsqueda tuvo éxito indicando
          posición o si no tuvo éxito. En caso de tener éxito, borra su valor.
       d. Muéstrelo ordenado de forma ascendente, y a continuación de forma descendente.
     */
@@ -36,7 +36,7 @@
       let a = [];
       for (let i = 1; i <= limite; i++) {
         if (i % 2 != 0) {
-        a.push(i); 
+        a.push(i);
         }
       }
       return a;
@@ -52,7 +52,7 @@
       let a = [...arr];
       return a.reverse();
     }
-    
+
     //Busca en un array un elemento indicado, si lo encuentra, elimina su primera aparición
     function buscarBorrar(arr, num) {
       num = parseInt(num);
@@ -104,7 +104,7 @@
     let mensaje;
     document.getElementById("borrar").addEventListener('click', () => mensaje = buscarBorrar(miArr, document.getElementById('numero').value));
     document.getElementById("borrar").addEventListener('click', () => document.getElementById('mensaje').innerHTML = mensaje);
-  
+
     // Apartado d
     document.getElementById("ascendente").addEventListener('click', () => document.getElementById('mensaje').innerHTML = ascendente(miArr));
     document.getElementById("descendente").addEventListener('click', () => document.getElementById('mensaje').innerHTML = descendente(miArr));

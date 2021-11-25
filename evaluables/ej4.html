@@ -4,20 +4,51 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Ejercicio 4</title>
 </head>
 <body>
+  <div id="typewritter"></div>
   <script>
     /*
       Usando métodos de arrays de orden superior (apartado b): (CE4b, CE4c,CE4d, CE4i)
-      -Pedir al usuario que introduzca una frase.
-      -Quitar todos los números de dicha frase
-      -Mostrar el texto generando el efecto TypeWritter (el texto se muestra simulando que se está tecleando ese momento)
-      -Incorporar el efecto cursor intermitente.
+      a) Pedir al usuario que introduzca una frase.
+      b) Quitar todos los números de dicha frase
+      c) Mostrar el texto generando el efecto TypeWritter (el texto se muestra simulando que se está tecleando ese momento)
+      d) Incorporar el efecto cursor intermitente.
     */
 
-    
+    //A
+    let frase = prompt("introduce una frase: ");
 
+
+    //B
+    let arr = [...frase];
+    console.log(arr);
+    let digito = /\d/;
+
+    let filtrado = arr.filter(elem => !elem.match(digito));
+    console.log(filtrado);
+
+
+    //C
+    let texto = filtrado.join("");
+    console.log(texto);
+
+    //Muestra el texto indicado con el efecto typeWritter en el elemento con el id indicado.
+    function escribir(texto, elemento, contador = 1) {
+      trozo = texto.slice(0, contador);
+      document.getElementById(elemento).innerHTML = trozo;
+      contador++;
+      if (contador <= texto.length) {
+        //Funcion recursiva, se llama así misma (cada 100 ms)
+        setTimeout(function() {escribir(texto, elemento, contador)}, 100);
+      }
+    }
+
+    escribir(texto, "typewritter");
+
+    //D
+    //PENDIENTE
 
   </script>
 </body>

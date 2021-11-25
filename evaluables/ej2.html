@@ -4,25 +4,116 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Ejercicio 2</title>
 </head>
 <body>
+  <label for="palabras">Escribe las palabras: </label>
+  <input type="text" name="cadena" id="cadena">
+  <input type="button" id="enviar" value="Enviar">
+
   <script>
     /*
       Crea un script que tome una serie de palabras ingresadas por el usuario y almacene esas palabras
       en un array. Posteriormente, manipula ese array para mostrar en una nueva ventana los siguientes
       datos: (CE4b, CE4c, CE4d, CE4i)
-      -Todas las palabras.
-      -Todas las palabras colocadas al revés.
-      -La primera palabra ingresada por el usuario
-      -La última palabra ingresada por el usuario
-      -El número de palabras presentes en el array
-      -Las palabras ordenadas de la 'a' a la 'z':
-      -Las palabras Ordenadas de la 'z' a la 'a'
+      a. Todas las palabras.
+      b. Todas las palabras colocadas al revés.
+      c. La primera palabra ingresada por el usuario
+      d. La última palabra ingresada por el usuario
+      e. El número de palabras presentes en el array
+      f. Las palabras ordenadas de la 'a' a la 'z':
+      g. Las palabras Ordenadas de la 'z' a la 'a'
     */
 
-    
+    document.getElementById("enviar").addEventListener('click', manipular);
+    document.getElementById("enviar").addEventListener('click', abrirVentana);
 
+    let palabras;       //A
+    let palabrasReves;  //B
+    let primeraPalabra; //C
+    let ultimaPalabra;  //D
+    let numPalabras;    //E
+    let palabrasAZ;     //F
+    let palabrasZA;     //G
+    let invertidos;
+
+
+    //Devuelve un array en orden inverso sin modificar el original
+    function ordenarInversa(arr) {
+      let a = [...arr];
+      return a.reverse();
+    }
+
+    //Devuelve un array ordenado alfabeticamente sin modificar el original
+    function ordenarAZ(arr) {
+      let a = [...arr];
+      return a.sort();
+    }
+
+    //B EXTRA: Devuelve un array con los caracteres de cada elemento invertidos
+    function reves(arr) {
+      let a = [];
+      for (i of [...arr]) {
+        a.push(ordenarInversa(i).join(""));
+      }
+      return a;
+    }
+
+    function manipular() {
+      //Creamos un array con las palabras
+      let cadena = document.getElementById("cadena").value;
+      let arrPalabras = cadena.split(" ");
+      console.log(arrPalabras);
+
+      //A
+      //Convertimos un array en cadena separando sus elementos por coma y espacio
+      palabras = arrPalabras.join(", ");
+      console.log(palabras);
+
+      //B
+      palabrasReves = ordenarInversa(arrPalabras).join(", ");
+      console.log(palabrasReves);
+
+      //C
+      primeraPalabra = arrPalabras[0];
+      console.log(primeraPalabra);
+
+      //E
+      numPalabras = arrPalabras.length;
+      console.log(numPalabras);
+
+      //D
+      ultimaPalabra = arrPalabras[numPalabras -1];
+      console.log(ultimaPalabra);
+
+      //F
+      palabrasAZ = ordenarAZ(arrPalabras).join(", ");
+      console.log(palabrasAZ);
+
+      //G
+      palabrasZA = ordenarInversa(ordenarAZ(arrPalabras)).join(", ");
+      console.log(palabrasZA);
+
+      //B- EXTRA
+      invertidos = reves(arrPalabras).join(", ")
+      console.log(invertidos);
+    }
+
+
+
+    function abrirVentana() {
+      let ventana = window.open('');
+      ventana.document.write(`
+        <p>A) Todas las palabras:                    ${palabras}</p>
+        <p>B) Todas las palabras colocadas al revés: ${palabrasReves}</p>
+        <p>C) La primera palabra ingresada:          ${primeraPalabra}</p>
+        <p>D) La última palabra ingresada:           ${ultimaPalabra}</p>
+        <p>E) El número de palabras presentes:       ${numPalabras}</p>
+        <p>F) Palabras ordenadas de la 'a' a la 'z': ${palabrasAZ}</p>
+        <p>G) Palabras ordenadas de la 'z' a la 'a': ${palabrasZA}</p>
+        <p>B-EXTRA) Caracteres invertidos:           ${invertidos}</p>
+      `);
+    }
 
   </script>
 </body>
