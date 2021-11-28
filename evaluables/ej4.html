@@ -29,6 +29,24 @@
     let filtrado = arr.filter(elem => !elem.match(digito));
     console.log(filtrado);
 
+    //D
+    let cursor = "|";
+
+    // Alterna el valor del cursor
+    function cambioCursor() {
+      if (cursor == "|") {
+        cursor = "";
+      } else {
+        cursor = "|"
+      }
+    }
+
+    // Reasigna el texto que muestra el elemento HTML
+    function finalCursor(elemento) {
+      document.getElementById(elemento).innerHTML = texto + cursor;
+    }
+
+    let alterno = setInterval(cambioCursor, 600);
 
     //C
     let texto = filtrado.join("");
@@ -37,18 +55,17 @@
     //Muestra el texto indicado con el efecto typeWritter en el elemento con el id indicado.
     function escribir(texto, elemento, contador = 1) {
       trozo = texto.slice(0, contador);
-      document.getElementById(elemento).innerHTML = trozo;
+      document.getElementById(elemento).innerHTML = trozo + cursor;
       contador++;
       if (contador <= texto.length) {
         //Funcion recursiva, se llama así misma (cada 100 ms)
-        setTimeout(function() {escribir(texto, elemento, contador)}, 100);
+        setTimeout(function() {escribir(texto, elemento, contador);}, 100);
+      } else {
+        let final = setInterval(function() {finalCursor(elemento);}, 600);
       }
     }
 
     escribir(texto, "typewritter");
-
-    //D
-    //PENDIENTE
 
   </script>
 </body>

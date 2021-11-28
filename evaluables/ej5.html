@@ -7,56 +7,126 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="marca"></p>
-  <p id="color"></p>
+
+  <input type="button" value="C) Marca de vehículo 1" id="c">
+  <input type="button" value="D) Color de vehículo 2" id="d">
+  <input type="button" value="E) Mostrar datos vehículo 1" id="e">
+  <input type="button" value="F) Acelerar vehículo 1 a 100km/h" id="f">
+  <input type="button" value="G) Arrancar vehículo 2" id="g">
+  <input type="button" value="I) Frenar vehículo 2" id="i">
+  <input type="button" value="J) Propiedades vehículo 1 - for in" id="j1">
+  <input type="button" value="J) Propiedades vehículo 1 - Object.hasOwnPropertyNames" id="j2">
+  <input type="button" value="J) Propiedades vehículo 1 - Object.keys" id="j3">
+
+
+
+  <p><span id="span" style="background-color: bisque;"></span></p>
+
   <script>
     /*
       Crear objeto Vehículo. (CE4b, CE4e, CE4f, CE4g, CE4h, CE4i)
-      -Crear constructor con las propiedades: marca, modelo, color y año fabricación.
-      -Instanciar dos objetos.
-      -Mostrar por pantalla una propiedad con notación por puntos. Objeto 1 - marca.
-      -Mostrar por pantalla una propiedad con notación por corchetes. Objeto 2 - color.
-      -Crear el método mostrarDatos.
-      -Crear un método acelerar(velocidad). Mostrará por pantalla que el coche ha acelerado a la velocidad pasada.
-      -Crear un método con función interna arrancar. Mostrará por pantalla que el coche de marca _, modelo_, de color_ ha arrancado.
-      -Asignar una nueva propiedad cilindrada.
-      -Asignar un nuevo método frenar. Mostrará por pantalla que el coche de marca_, modelo_, color_ ha parado.
-      -Muestra todas las propiedades de Objeto1 utilizando: for in , Object.hasOwnPropertyNames(), Object.keys().
-      -Modifica los descriptores de las propiedades para que no se muestren los métodos ni la propiedad marca al usar for...in y Object.keys. Muestra de nuevo las propiedades del Objeto1.
+      a) Crear constructor con las propiedades: marca, modelo, color y año fabricación.
+      b) Instanciar dos objetos.
+      c) Mostrar por pantalla una propiedad con notación por puntos. Objeto 1 - marca.
+      d) Mostrar por pantalla una propiedad con notación por corchetes. Objeto 2 - color.
+      e) Crear el método mostrarDatos.
+      f) Crear un método acelerar(velocidad). Mostrará por pantalla que el coche ha acelerado a la velocidad pasada.
+      g) Crear un método con función interna arrancar. Mostrará por pantalla que el coche de marca _, modelo_, de color_ ha arrancado.
+      h) Asignar una nueva propiedad cilindrada.
+      i) Asignar un nuevo método frenar. Mostrará por pantalla que el coche de marca_, modelo_, color_ ha parado.
+      j) Muestra todas las propiedades de Objeto1 utilizando: for in , Object.hasOwnPropertyNames(), Object.keys().
+      k) Modifica los descriptores de las propiedades para que no se muestren los métodos ni la propiedad marca al usar for...in y Object.keys. Muestra de nuevo las propiedades del Objeto1.
     */
 
+    // A
     function Vehiculo(marca, modelo, color, fabricacion) {
       this.marca = marca;
       this.modelo = modelo;
       this.color = color;
       this.fabricacion = fabricacion;
+      //Aunque no se pide en el enunciado, para hacerlo un poco mas realista: movimiento se vuelve true si se acelera o arranca.
+      this.movimiento = false;
+      // G
+      this.arrancar = function () {
+        this.movimiento = true;
+        return `El coche de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} ha arrancado`;
+      };
+      console.log("Vehiculo creado")
     }
 
+    // B
     let v1 = new Vehiculo("Renault", "Megane", "negro", 2010);
     let v2 = new Vehiculo("Opel", "Corsa", "rojo", 2018);
 
-    console.log("Marca de v1: " + v1.marca);
-    document.getElementById("marca").innerHTML = v1.marca;
+    // C
+    function mostrarMarca() {
+      console.log("Marca de v1: " + v1.marca);
+      document.getElementById("span").innerHTML = v1.marca;
+    }
 
-    console.log("Color de v2: " + v2['color']);
-    document.getElementById("color").innerHTML = v2['color'];
+    // D
+    function mostrarColor() {
+      console.log("Color de v2: " + v2['color']);
+      document.getElementById("span").innerHTML = v2['color'];
+    }
 
+    // E
     Vehiculo.prototype.mostrarDatos = function () {
       return `Vehiculo de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} y fabricado en el ${this.fabricacion}`;
     };
 
-    console.log("Datos de v1: " + v1.mostrarDatos());
 
+    // F
     Vehiculo.prototype.acelerar = function (velocidad) {
+      this.movimiento = true
       console.log("El coche ha acelerado a la velocidad de " + velocidad + " km/h");
+      return "El coche ha acelerado a la velocidad de " + velocidad + " km/h";
     };
 
-    Vehiculo.prototype.arrancar = function () {
-      console.log(`El coche de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} ha arrancado`);
-    };
+    // H
+    Vehiculo.prototype.cilindrada = null;
 
-    Vehiculo.prototype.cilindrada;
+    // I
+    Vehiculo.prototype.frenar = function () {
+        if (this.movimiento == true) {
+          this.movimiento = false;
+          return `El coche de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} ha frenado`;
+        } else {
+          return `El coche de marca ${this.marca}, modelo ${this.modelo}, color ${this.color} no estaba en movimiento`
+        }
+      };
 
+    // J Son funciones que reciben el objeto, no un método del objeto.
+    function mostrarPropiedades1(vehiculo) {
+      let propiedades = "";
+      for (let i in vehiculo) {
+        propiedades += i + ": " + vehiculo[i] + "<br>";
+      }
+      return propiedades;
+    }
+
+    function mostrarPropiedades2(vehiculo) {
+      document.getElementById(elemento).innerHTML = "";
+      Object.keys(vehiculo).forEach(i => document.getElementById(elemento).innerHTML +=  i + ": " + vehiculo[i] + "<br>");
+    }
+
+    function mostrarPropiedades3(vehiculo, elemento) {
+      document.getElementById(elemento).innerHTML = "";
+      Object.getOwnPropertyNames(vehiculo).forEach(i => document.getElementById(elemento).innerHTML +=  i + ": " + vehiculo[i] + "<br>");
+    }
+
+
+    document.getElementById("c").addEventListener('click', mostrarMarca);
+    document.getElementById("d").addEventListener('click', mostrarColor);
+    document.getElementById("e").addEventListener('click', () => document.getElementById("span").innerHTML = v1.mostrarDatos());
+    document.getElementById("f").addEventListener('click', () => document.getElementById("span").innerHTML = v1.acelerar(100));
+    document.getElementById("g").addEventListener('click', () => document.getElementById("span").innerHTML = v2.arrancar());
+    document.getElementById("i").addEventListener('click', () => document.getElementById("span").innerHTML = v2.frenar());
+    document.getElementById("j1").addEventListener('click', () => document.getElementById("span").innerHTML = mostrarPropiedades1(v1));
+    document.getElementById("j2").addEventListener('click', () => mostrarPropiedades3(v1, "span"));
+    document.getElementById("j3").addEventListener('click', () => mostrarPropiedades3(v1, "span"));
+
+    // K
   </script>
 </body>
 </html>
