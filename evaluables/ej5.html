@@ -17,6 +17,7 @@
   <input type="button" value="J) Propiedades vehículo 1 - for in" id="j1">
   <input type="button" value="J) Propiedades vehículo 1 - Object.hasOwnPropertyNames" id="j2">
   <input type="button" value="J) Propiedades vehículo 1 - Object.keys" id="j3">
+  <input type="button" value="K) Modificar descriptores de propiedades del vehiculo 1" id="k">
 
 
 
@@ -105,17 +106,31 @@
       return propiedades;
     }
 
-    function mostrarPropiedades2(vehiculo) {
-      document.getElementById(elemento).innerHTML = "";
-      Object.keys(vehiculo).forEach(i => document.getElementById(elemento).innerHTML +=  i + ": " + vehiculo[i] + "<br>");
-    }
-
-    function mostrarPropiedades3(vehiculo, elemento) {
+    function mostrarPropiedades2(vehiculo, elemento) {
       document.getElementById(elemento).innerHTML = "";
       Object.getOwnPropertyNames(vehiculo).forEach(i => document.getElementById(elemento).innerHTML +=  i + ": " + vehiculo[i] + "<br>");
     }
 
+    function mostrarPropiedades3(vehiculo, elemento) {
+      document.getElementById(elemento).innerHTML = "";
+      Object.keys(vehiculo).forEach(i => document.getElementById(elemento).innerHTML +=  i + ": " + vehiculo[i] + "<br>");
+    }
 
+    // K
+    // Esta funcion modifica los descriptores de la marca y los métodos del vehiculo para que no sean enumerables
+    function modificarDescriptores(vehiculo) {
+      Object.defineProperty(v1, 'marca', {enumerable: false});
+      for (prop in v1) {
+        if (typeof v1[prop] == 'function') {
+          Object.defineProperty(v1, prop, {enumerable: false});
+        }
+      }
+      document.getElementById("j1").style = "background-color:chartreuse";
+      document.getElementById("j3").style = "background-color:chartreuse";
+      alert("Ahora la propiedad 'marca' y las funciones del vehiculo 1 no son enumerables. Vuelve a mostrar sus propiedades para comprobar la diferencia.");
+    }
+
+    //Añadir eventos
     document.getElementById("c").addEventListener('click', mostrarMarca);
     document.getElementById("d").addEventListener('click', mostrarColor);
     document.getElementById("e").addEventListener('click', () => document.getElementById("span").innerHTML = v1.mostrarDatos());
@@ -123,10 +138,9 @@
     document.getElementById("g").addEventListener('click', () => document.getElementById("span").innerHTML = v2.arrancar());
     document.getElementById("i").addEventListener('click', () => document.getElementById("span").innerHTML = v2.frenar());
     document.getElementById("j1").addEventListener('click', () => document.getElementById("span").innerHTML = mostrarPropiedades1(v1));
-    document.getElementById("j2").addEventListener('click', () => mostrarPropiedades3(v1, "span"));
+    document.getElementById("j2").addEventListener('click', () => mostrarPropiedades2(v1, "span"));
     document.getElementById("j3").addEventListener('click', () => mostrarPropiedades3(v1, "span"));
-
-    // K
+    document.getElementById("k").addEventListener('click', () => modificarDescriptores(v1));
   </script>
 </body>
 </html>
